@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: SuYoki's BLOG
+title: 我们的凌霄~
 subtitle: ''
 description: ''
 keywords:
-author: SuYoki Ayas
+author: 凌霄九班
 language: zh-cn
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://suyoki-ayas.github.io
+url: https://LXiao9.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
