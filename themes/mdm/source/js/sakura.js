@@ -59,6 +59,20 @@ SakuraList.prototype.size = function () {
     return this.list.length;
 }
 
+function isMobileViewport() {
+    return window.innerWidth <= 768;
+}
+
+// 以 1920x1080 为基准，让飘落速度随视口分辨率缩放，手机端再整体放慢
+function getResolutionScale() {
+    var scale = Math.sqrt(window.innerWidth * window.innerHeight / (1920 * 1080));
+    scale = Math.min(Math.max(scale, 0.5), 3);
+    if (isMobileViewport()) {
+        scale *= 0.6;
+    }
+    return scale;
+}
+
 function getRandom(option) {
     var ret, random;
     switch (option) {
@@ -69,7 +83,8 @@ function getRandom(option) {
             ret = Math.random() * window.innerHeight;
             break;
         case 's':
-            ret = Math.random();
+            // 手机端收窄大小差异，避免花瓣过大或过小
+            ret = isMobileViewport() ? 0.35 + Math.random() * 0.35 : Math.random();
             break;
         case 'r':
             ret = Math.random() * 6;
@@ -77,13 +92,13 @@ function getRandom(option) {
         case 'fnx':
             random = -0.5 + Math.random() * 1;
             ret = function (x, y) {
-                return x + 0.5 * random - 1.7;
+                return x + (0.5 * random - 0.85) * getResolutionScale();
             };
             break;
         case 'fny':
-            random = 1.5 + Math.random() * 0.7
+            random = 0.6 + Math.random() * 0.4;
             ret = function (x, y) {
-                return y + random;
+                return y + random * getResolutionScale();
             };
             break;
         case 'fnr':
@@ -108,7 +123,8 @@ function startSakura() {
     document.getElementsByTagName('body')[0].appendChild(canvas);
     cxt = canvas.getContext('2d');
     var sakuraList = new SakuraList();
-    for (var i = 0; i < 50; i++) {
+    var sakuraCount = isMobileViewport() ? 24 : 50;
+    for (var i = 0; i < sakuraCount; i++) {
         var sakura, randomX, randomY, randomS, randomR, randomFnx, randomFny;
         randomX = getRandom('x');
         randomY = getRandom('y');
@@ -133,7 +149,10 @@ function startSakura() {
     })
 }
 window.onresize = function () {
-    var canvasSnow = document.getElementById('canvas_snow');
+    var canvas = document.getElementById('canvas_sakura');
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 img.onload = function () {
     startSakura();

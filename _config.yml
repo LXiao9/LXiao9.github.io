@@ -4,12 +4,12 @@
 
 # Site
 title: 我们的凌霄~
-subtitle: ''
-description: ''
+subtitle: '凌霄九班时光记'
+description: '这里是九班，凌霄的九班！'
 keywords:
 author: 凌霄九班
 language: zh-cn
-timezone: ''
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
